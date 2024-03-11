@@ -40,9 +40,3 @@ python main.py
 
 Your contributions are what make the community amazing. Want to make *The Arcane Odyssey* even better? Fork the repo, add your magic, and submit a pull request.
 
-## Acknowledgements
-
-- Hats off to the open-source community for continuous inspiration.
-- Special thanks to OpenAI for the incredible resources and support.
-
-Embark on your quest, face the unknown, and write your own odyssey.
