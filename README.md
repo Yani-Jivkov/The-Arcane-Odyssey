@@ -13,6 +13,7 @@ Ready to begin your odyssey? Follow these simple steps to get started:
 ### Prerequisites
 
 Ensure you have Python 3.6 or higher installed on your computer.
+pip install cowsay
 
 ### Installation
 
