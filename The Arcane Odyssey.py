@@ -3,14 +3,12 @@
 import cowsay
 import random
 
-def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coin_boost_active):
+def Main_Game_Func(total_coins, death_cost, round, level, xp, xp_to_lvl_up, coin_boost_active, wins, looses):
     while True:
-        if total_coins <= 0:
-            return
 
-        helper += 1
+        round += 1
 
-        if helper % 10 == 0:
+        if round % 10 == 0:
             death_cost += 25
 
         position_of_rock = random.randint(1, 3)
@@ -24,28 +22,41 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coi
                 print(f'\n'      '\n'      '')
                 print(f'Nice! You are + 150 coins!')
                 total_coins += 150
+                wins += 1
                 coin_boost_active = False
             else:
                 print(f'\n'      '\n'      '')
                 print(f'Nice! You are + 100 coins!')
                 total_coins += 100
+                wins += 1
             xp += 10
             if xp >= xp_to_lvl_up:
-                Level_up(level, xp, xp_to_lvl_up)
+                level += 1
+                xp -= xp_to_lvl_up
+                xp_to_lvl_up += 20
+                if level % 5 == 0:
+                    print(f'\n'      '')
+                    print(f'Reach Level {level}')
 
         else:
             print(f'\n'      '\n'      '')
             print(f'Ahh! Mate you just lost {death_cost}')
             total_coins -= 50
+            looses += 1
             coin_boost_active = False
+            if total_coins <= 0:
+                print(f'Game over!')
+                Stats_Func(round, wins, looses, level, total_coins, death_cost)
+                return
 
         print(f'\n'      '')
 
         while True:
             print(f'Options:')
             print(f'If you want to fight type "Ready"')
-            print(f'if you wanna browse some items then type "Open store"')
-            print(f'if you want to check you gear type "Gear"')
+            print(f'If you wanna browse some items then type "Open store"')
+            print(f'If you want to check you gear type "Gear"')
+            print(f'If you want to see your stats type "Stats"')
             answer = input(f'>>> ')
 
             if answer.lower() == 'ready':
@@ -56,6 +67,8 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coi
             elif answer.lower() == 'gear':
                 Gear_Func()
                 continue
+            elif answer.lower() == 'stats':
+                Stats_Func(round, wins, looses, level, total_coins, death_cost)
             else:
                 print(f'Error')
                 print(f'Try again!')
@@ -135,13 +148,30 @@ def Gear_Func():
     answer = input(f'>>> ')
     print(f'\n'      '\n'      '')
 
-def Level_up(level, xp, xp_to_lvl_up):
-    level += 1
-    xp -= xp_to_lvl_up
-    xp_to_lvl_up += 20
-    if level % 5 == 0:
-        print(f'\n'      '')
-        unlock_achievement(f'Reach Level {level}')
+def Stats_Func(round, wins, looses, level, total_coins, death_cost):
+    print(f'\n'      '')
+    print(f'Thoose are your stats {name}:')
+    print(f'Round: {round}')
+    print(f'Wins: {wins}')
+    print(f'Looses: {looses}')
+    print(f'Level: {level}')
+    print(f'Coins: {total_coins}')
+    print(f'Death charge: {death_cost}')
+    print(f'')
+    print(f'Ready to continue?')
+    answer = input(f'>>> ')
+    print(f'\n'      '')
+
+# def LevelUp_Func():
+#     level += 1
+#     xp -= xp_to_lvl_up
+#     xp_to_lvl_up += 20
+#     print(level)
+#     print(xp)
+#     print(xp_to_lvl_up)
+#     if level % 5 == 0:
+#         print(f'\n'      '')
+#         print(f'Reach Level {level}')
 
 
 print(f'Welcome to "The Arcane Odyssey" player!')
@@ -154,7 +184,9 @@ level = 1
 xp = 0
 xp_to_lvl_up = 10
 coin_boost_active = False
-helper = 0
+round = 0
+wins = 0
+looses = 0
 
 dict_helper = {'mid': 1, 'left': 2, 'right': 3}
 store_items = {'Cheese Bowl': [300, 'Helmet', 'Unowned'], 'Cheese Protector': [500, 'Chest', 'Unowned', ['Saving', 10]], 'Cheese Farters': [400, 'Legs', 'Unowned'],
@@ -179,5 +211,5 @@ print(f'You need to type the position you think the rock will fall if you don\'t
 print(f'Every 10th round you will loose with 25 more coins.')
 print(f'Just a reminder that you have {total_coins} coins.')
 print(f'Good luck!')
-
-Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coin_boost_active)
+                #total_coins, death_cost, round, level, xp, xp_to_lvl_up, coin_boost_active, wins, looses
+Main_Game_Func(total_coins, death_cost, round, level, xp, xp_to_lvl_up, coin_boost_active, wins, looses)
