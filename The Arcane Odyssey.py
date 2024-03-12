@@ -3,7 +3,7 @@
 import cowsay
 import random
 
-def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
+def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coin_boost_active):
     while True:
         if total_coins <= 0:
             return
@@ -20,9 +20,15 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
         position = input(f'Type the position you are thinking it is going to throw "mid", "left" or "right" ==> ')
 
         if dict_helper[position] == position_of_rock:
-            print(f'\n'      '\n'      '')
-            print(f'Nice! You are + 100 coins!')
-            total_coins += 100
+            if coin_boost_active:
+                print(f'\n'      '\n'      '')
+                print(f'Nice! You are + 150 coins!')
+                total_coins += 150
+                coin_boost_active = False
+            else:
+                print(f'\n'      '\n'      '')
+                print(f'Nice! You are + 100 coins!')
+                total_coins += 100
             xp += 10
             if xp >= xp_to_lvl_up:
                 Level_up(level, xp, xp_to_lvl_up)
@@ -31,6 +37,7 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
             print(f'\n'      '\n'      '')
             print(f'Ahh! Mate you just lost {death_cost}')
             total_coins -= 50
+            coin_boost_active = False
 
         print(f'\n'      '')
 
@@ -44,7 +51,7 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
             if answer.lower() == 'ready':
                 break
             elif answer.lower() == 'open store':
-                Store_Func(total_coins)
+                Store_Func(total_coins, coin_boost_active)
 
             elif answer.lower() == 'gear':
                 Gear_Func()
@@ -56,12 +63,15 @@ def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
                 continue
 
 
-def Store_Func(total_coins):
+def Store_Func(total_coins, coin_boost_active):
     print(f'\n'      '\n'      '')
     print(f'You have {total_coins} coins')
     print(f'Here are all of the store offerts:')
 
     for i, x in store_items.items():
+        if i == 'Coin Booster':
+            print(f'{i} - {x[0]}, {x[1]}')
+            continue
         print(f'{i} - {x[0]}, {x[1]}, {x[2]}')
     print(f'\n'      '')
 
@@ -76,7 +86,24 @@ def Store_Func(total_coins):
             break
         else:
             for i in store_items.keys():
-                if answer == i and store_items[i][2] == 'Unowned':
+                # 'Coin Booster': 'Boosts the win from the next match with 50%'
+                if answer == 'Coin Booster':
+                    if total_coins - 1 >= store_items['Coin Booster'][0]:
+                        total_coins -= store_items['Coin Booster'][0]
+                        coin_boost_active = True
+                        print(f'You just bought Coin Booster!')
+                        print(f'\n'         '')
+                        break
+                    else:
+                        if total_coins - store_items[answer][0] == 0:
+                            print(f'If you buy it you will have 0 coins!!!')
+                            print(f'\n'      '\n'      '')
+                            break
+                        print(f'Not enough money!')
+                        print(f'\n'      '\n'      '')
+                        break
+
+                elif answer == i and store_items[i][2] == 'Unowned':
                     if total_coins - 1 >= store_items[i][0]:
                         store_items[i][2] = 'Owned'
                         for x in body_items.keys():
@@ -112,7 +139,6 @@ def Level_up(level, xp, xp_to_lvl_up):
     level += 1
     xp -= xp_to_lvl_up
     xp_to_lvl_up += 20
-    print(f'\n'      '')
     if level % 5 == 0:
         print(f'\n'      '')
         unlock_achievement(f'Reach Level {level}')
@@ -127,11 +153,13 @@ death_cost = 50
 level = 1
 xp = 0
 xp_to_lvl_up = 10
+coin_boost_active = False
 helper = 0
 
 dict_helper = {'mid': 1, 'left': 2, 'right': 3}
 store_items = {'Cheese Bowl': [300, 'Helmet', 'Unowned'], 'Cheese Protector': [500, 'Chest', 'Unowned', ['Saving', 10]], 'Cheese Farters': [400, 'Legs', 'Unowned'],
-               'Cheese Socks': [250, 'Feet', 'Unowned'], 'Ghost Defender': [125, 'Shield', 'Unowned', {'Saving': 1}], 'Stone Cutter': [100, 'Weapon', 'Unowned']}
+               'Cheese Socks': [250, 'Feet', 'Unowned'], 'Ghost Defender': [125, 'Shield', 'Unowned', {'Saving': 1}], 'Stone Cutter': [100, 'Weapon', 'Unowned'],
+               'Coin Booster': [25, 'Boosts the win from the next match with 50%']}
 body_items = {'Helmet': 'None', 'Chest': 'None', 'Legs': 'None', 'Feet': 'None', 'Shield': 'Default', 'Weapon': 'Default'}
 backpack = {}
 
@@ -152,4 +180,4 @@ print(f'Every 10th round you will loose with 25 more coins.')
 print(f'Just a reminder that you have {total_coins} coins.')
 print(f'Good luck!')
 
-Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up)
+Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up, coin_boost_active)
