@@ -3,7 +3,7 @@
 import cowsay
 import random
 
-def Main_Game_Func(total_coins, death_cost, helper):
+def Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up):
     while True:
         if total_coins <= 0:
             return
@@ -23,12 +23,16 @@ def Main_Game_Func(total_coins, death_cost, helper):
             print(f'\n'      '\n'      '')
             print(f'Nice! You are + 100 coins!')
             total_coins += 100
+            xp += 10
+            if xp >= xp_to_lvl_up:
+                Level_up(level, xp, xp_to_lvl_up)
+
         else:
             print(f'\n'      '\n'      '')
             print(f'Ahh! Mate you just lost {death_cost}')
             total_coins -= 50
 
-        print(f'\n'      '\n'      '')
+        print(f'\n'      '')
 
         while True:
             print(f'Options:')
@@ -104,9 +108,15 @@ def Gear_Func():
     answer = input(f'>>> ')
     print(f'\n'      '\n'      '')
 
+def Level_up(level, xp, xp_to_lvl_up):
+    level += 1
+    xp -= xp_to_lvl_up
+    xp_to_lvl_up += 20
+    print(f'\n'      '')
+    if level % 5 == 0:
+        print(f'\n'      '')
+        unlock_achievement(f'Reach Level {level}')
 
-
-# The Arcane Odyssey
 
 print(f'Welcome to "The Arcane Odyssey" player!')
 print(f'Can you help our team to defeat the big monster?')
@@ -114,11 +124,14 @@ answer = input(f'>>> ')
 
 total_coins = 300
 death_cost = 50
+level = 1
+xp = 0
+xp_to_lvl_up = 10
 helper = 0
 
 dict_helper = {'mid': 1, 'left': 2, 'right': 3}
-store_items = {'Cheese Bowl': [300, 'Helmet', 'Unowned'], 'Cheese Protector': [500, 'Chest', 'Unowned'], 'Cheese Farters': [400, 'Legs', 'Unowned'],
-               'Cheese Socks': [250, 'Feet', 'Unowned'], 'Ghost Defender': [125, 'Shield', 'Unowned'], 'Stone Cutter': [100, 'Weapon', 'Unowned']}
+store_items = {'Cheese Bowl': [300, 'Helmet', 'Unowned'], 'Cheese Protector': [500, 'Chest', 'Unowned', ['Saving', 10]], 'Cheese Farters': [400, 'Legs', 'Unowned'],
+               'Cheese Socks': [250, 'Feet', 'Unowned'], 'Ghost Defender': [125, 'Shield', 'Unowned', {'Saving': 1}], 'Stone Cutter': [100, 'Weapon', 'Unowned']}
 body_items = {'Helmet': 'None', 'Chest': 'None', 'Legs': 'None', 'Feet': 'None', 'Shield': 'Default', 'Weapon': 'Default'}
 backpack = {}
 
@@ -139,4 +152,4 @@ print(f'Every 10th round you will loose with 25 more coins.')
 print(f'Just a reminder that you have {total_coins} coins.')
 print(f'Good luck!')
 
-Main_Game_Func(total_coins, death_cost, helper)
+Main_Game_Func(total_coins, death_cost, helper, level, xp, xp_to_lvl_up)
