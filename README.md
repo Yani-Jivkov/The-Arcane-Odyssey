@@ -19,7 +19,7 @@ pip install cowsay
 ### Installation
 
 1. Clone this repository to your local machine using:
-git clone [The Arcane Odyssey](https://github.com/Yani-Jivkov/The-Arcane-Odyssey)
+git clone [The Arcane Odyssey](https://github.com/Yani-Jivkov/The-Arcane-Odyssey/blob/main/The%20Arcane%20Odyssey.py)
 
 2. Navigate to the game directory:
 cd TheArcaneOdyssey
