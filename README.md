@@ -6,6 +6,10 @@ Embark on an exhilarating text-based journey in *The Arcane Odyssey*, where ever
 
 *The Arcane Odyssey* is a Python-based game that challenges players to think critically, make strategic choices, and navigate through a series of unpredictable encounters with mythical creatures. With a blend of luck and foresight, collect treasures, enhance your abilities, and conquer the challenges that lie ahead.
 
+## Languages used
+
+<img src = "https://img.shields.io/badge/python%20-%236C0101.svg?style=for-the-badge&logo=python&logoColor=white" alt="python"/>
+
 ## Quick Start
 
 Ready to begin your odyssey? Follow these simple steps to get started:
@@ -16,13 +20,14 @@ Ensure you have Python 3.6 or higher installed on your computer.
 
 pip install cowsay
 
-### Installation
+## Install & Run
 
-1. Clone this repository to your local machine using:
-git clone [The Arcane Odyssey](https://github.com/Yani-Jivkov/The-Arcane-Odyssey/blob/main/The%20Arcane%20Odyssey.py)
-
-2. Navigate to the game directory:
-cd TheArcaneOdyssey
+```sh
+git clone https://github.com/Yani-Jivkov/Arcane_Odyssey.git
+cd  Arcane_Odyssey
+pip3 install -r requirements.txt
+python3  The-Arcane-Odyssey.py
+```
 
 ### How to Play
 
