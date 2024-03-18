@@ -32,7 +32,7 @@ python3  The-Arcane-Odyssey.py
 ### How to Play
 
 1. Launch the game by running:
-python main.py
+ Arcane_Odyssey.py
 
 2. Follow the on-screen instructions to make your choices and navigate through the game.
 
