@@ -23,8 +23,8 @@ pip install cowsay
 ## Install & Run
 
 ```sh
-git clone https://github.com/Yani-Jivkov/Arcane_Odyssey.git
-cd  Arcane_Odyssey
+git clone https://github.com/Yani-Jivkov/The-Arcane-Odyssey.git
+cd  The-Arcane-Odyssey
 pip3 install -r requirements.txt
 python3  The-Arcane-Odyssey.py
 ```
