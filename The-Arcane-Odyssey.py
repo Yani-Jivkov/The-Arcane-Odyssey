@@ -74,7 +74,7 @@ def Main_Game_Func(total_coins, death_cost, round, level, xp, xp_to_lvl_up, coin
             if answer.lower() == 'ready':
                 break
             elif answer.lower() == 'open store':
-                Store_Func(total_coins, coin_boost_active)
+                total_coins, coin_boost_active = Store_Func(total_coins, coin_boost_active)
 
             elif answer.lower() == 'gear':
                 Gear_Func()
@@ -152,6 +152,9 @@ def Store_Func(total_coins, coin_boost_active):
                         break
                 else:
                     continue
+
+    return total_coins, coin_boost_active
+
 
 # Gear logic
 def Gear_Func():
