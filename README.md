@@ -12,13 +12,13 @@ Embark on an exhilarating text-based journey in *The Arcane Odyssey*, where ever
 
 ## Quick Start
 
-Ready to begin your odyssey? Follow these simple steps to get started:
+- Ready to begin your odyssey? Follow these simple steps to get started:
 
 ### Prerequisites
 
-Ensure you have Python 3.6 or higher installed on your computer.
+- Ensure you have Python 3.6 or higher installed on your computer.
 
-pip install cowsay
+- pip install cowsay
 
 ## Install & Run
 
